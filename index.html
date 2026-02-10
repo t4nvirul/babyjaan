@@ -1,132 +1,71 @@
-/** @jsxImportSource https://esm.sh/react@18.2.0 */
-import { createRoot } from "https://esm.sh/react-dom@18.2.0/client";
-import React, { useState } from "https://esm.sh/react@18.2.0";
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: var(--gradient-card);
+  "
+>
+  <!-- Render this block only if {{isValentine}} is false -->
+  <div>
+    <h1>
+      Babsss mee got very important question to ask you.
+    </h1>
 
-const NO_PHRASES = [
-  "Howw coulddd youuuuu",
-  "Againnnnnnnn",
-  "But babyyyjaan I loveee youu",
-  "Did I do sumfinkk wrongg",
-  "i'm sorryyyy",
-  "plss jsut this oncee",
-  "Pls pls plsss I can't live without youuu",
-];
+    <img src="{{firstImg}}" alt="First reaction gif" />
 
-function App() {
-  const [noClicks, setNoClicks] = useState(0);
-  const [isValentine, setIsValentine] = useState(false);
-  const yesButtonSize = (noClicks * 20) + 16;
+    <div>
+      <button
+        type="button"
+        style="
+          font-size: {{yesButtonSize}}px;
+          margin: 10px;
+          padding: 10px 20px;
+          background-color: green;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        "
+      >
+        Yes
+      </button>
 
-  const firstImg = "https://c.tenor.com/kutFNFXxSIsAAAAC/tenor.gif";
-  const secondImg =
-    "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif";
-
-  const handleNo = () => {
-    setNoClicks((prev) => prev + 1);
-  };
-
-  const handleYes = () => {
-    setIsValentine(true);
-  };
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        fontFamily: "Arial, sans-serif",
-        textAlign: "center",
-      }}
-    >
-      {!isValentine
-        ? (
-          <>
-            <h1>
-              Babsss mee got very important question to ask you.
-            </h1>
-            <img src={firstImg} />
-            <div>
-              <button
-                onClick={handleYes}
-                style={{
-                  fontSize: `${yesButtonSize}px`,
-                  margin: "10px",
-                  padding: "10px 20px",
-                  backgroundColor: "green",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Yes
-              </button>
-              <button
-                onClick={handleNo}
-                style={{
-                  fontSize: "16px",
-                  margin: "10px",
-                  padding: "10px 20px",
-                  backgroundColor: "red",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                {noClicks === 0
-                  ? "No"
-                  : NO_PHRASES[Math.min(noClicks - 1, NO_PHRASES.length - 1)]}
-              </button>
-            </div>
-          </>
-        )
-        : (
-          <>
-            <img src={secondImg} />
-            <div
-              style={{
-                fontSize: "48px",
-                color: "pink",
-                fontWeight: "bold",
-              }}
-            >
-              Yay!!! 💖🎉
-            </div>
-          </>
-        )}
+      <button
+        type="button"
+        style="
+          font-size: 16px;
+          margin: 10px;
+          padding: 10px 20px;
+          background-color: red;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        "
+      >
+        <!-- If {{noClicks}} === 0, render "No"; otherwise render a phrase from NO_PHRASES -->
+        {{noButtonLabel}}
+      </button>
     </div>
-  );
-}
+  </div>
 
-function client() {
-  createRoot(document.getElementById("root")).render(<App />);
-}
-if (typeof document !== "undefined") client();
+  <!-- Render this block only if {{isValentine}} is true -->
+  <div>
+    <img src="{{secondImg}}" alt="Celebration gif" />
 
-export default async function server(request: Request): Promise<Response> {
-  return new Response(
-    `
-    <html>
-      <head>
-        <title>Valentine's Day Invitation</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
-          body { margin: 0; font-family: Arial, sans-serif; }
-        </style>
-      </head>
-      <body>
-        <div id="root"></div>
-        <script src="https://esm.town/v/std/catch"></script>
-        <script type="module" src="${import.meta.url}"></script>
-      </body>
-    </html>
-  `,
-    {
-      headers: { "content-type": "text/html" },
-    },
-  );
-}
+    <div
+      style="
+        font-size: 48px;
+        color: pink;
+        font-weight: bold;
+      "
+    >
+      Yay!!! 💖🎉
+    </div>
+  </div>
+</div>
